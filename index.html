@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Syllabus — бот расписания СПК</title>
+    <meta name="description" content="VK-бот, который следит за изменениями расписания Сургутского политехнического колледжа и присылает уведомления в беседу группы.">
+    <link rel="icon" type="image/svg+xml" href="img/logo.svg">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+    <header class="site-header" id="top">
+        <div class="container header-inner">
+            <a href="#top" class="logo" aria-label="Syllabus — на главную">
+                <img src="img/logo.svg" alt="" class="logo-icon" width="32" height="32">
+                <span class="logo-text">Syllabus</span>
+            </a>
+
+            <nav class="nav" id="nav" aria-label="Основная навигация">
+                <a href="#features">Возможности</a>
+                <a href="#how">Как работает</a>
+                <a href="#screenshots">Скриншоты</a>
+                <a href="#commands">Команды</a>
+                <a href="#install">Установка</a>
+                <a href="#authors">Авторы</a>
+            </nav>
+
+            <div class="header-actions">
+                <button class="theme-toggle" id="themeToggle" type="button" aria-label="Переключить тему" title="Сменить тему">
+                    <svg class="icon icon-sun" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+                        <circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/>
+                        <path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                    <svg class="icon icon-moon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+                        <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+                <button class="menu-toggle" id="menuToggle" type="button" aria-label="Открыть меню" aria-expanded="false">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+
+        <!-- ========== HERO ========== -->
+        <section class="hero" id="hero">
+            <div class="container hero-inner">
+                <span class="badge">VK · Python · SQLite · Pillow</span>
+                <h1 class="hero-title">
+                    Бот расписания <span class="accent">СПК</span>
+                </h1>
+                <p class="hero-lead">
+                    Следит за изменениями расписания Сургутского политехнического колледжа
+                    и присылает уведомления в беседу группы — картинкой с таблицей,
+                    а не текстом.
+                </p>
+                <div class="hero-actions">
+                    <a href="#install" class="btn btn-primary">
+                        Установить
+                        <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true">
+                            <path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </a>
+                    <a href="https://github.com/spkh-design/Syllabus" class="btn btn-secondary" target="_blank" rel="noopener">
+                        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+                            <path d="M12 .5C5.7.5.5 5.7.5 12c0 5 3.3 9.3 7.8 10.8.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.4-3.9-1.4-.5-1.3-1.3-1.7-1.3-1.7-1-.7.1-.7.1-.7 1.1.1 1.7 1.2 1.7 1.2 1 1.7 2.6 1.2 3.3.9.1-.7.4-1.2.7-1.5-2.5-.3-5.2-1.3-5.2-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.2 1.2a11 11 0 0 1 5.8 0c2.2-1.5 3.2-1.2 3.2-1.2.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.2 5.7.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6 4.5-1.5 7.8-5.8 7.8-10.8C23.5 5.7 18.3.5 12 .5z" fill="currentColor"/>
+                        </svg>
+                        GitHub
+                    </a>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <span class="stat-value">6</span>
+                        <span class="stat-label">дней недели</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-value">24/7</span>
+                        <span class="stat-label">в облаке</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-value">PNG</span>
+                        <span class="stat-label">вместо текста</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== FEATURES ========== -->
+        <section class="section" id="features">
+            <div class="container">
+                <header class="section-head reveal">
+                    <span class="section-kicker">Возможности</span>
+                    <h2>Что умеет бот</h2>
+                    <p class="section-lead">
+                        Минимум действий от пользователя — максимум автоматизации.
+                    </p>
+                </header>
+
+                <div class="features-grid">
+                    <article class="feature-card reveal">
+                        <div class="feature-icon">
+                            <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true">
+                                <path d="M12 6v6l4 2M12 22a10 10 0 1 1 0-20 10 10 0 0 1 0 20z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <h3>Автоматический мониторинг</h3>
+                        <p>Следит за расписанием вашей группы по расписанию окон — от рассвета до позднего вечера, семь дней в неделю.</p>
+                    </article>
+
+                    <article class="feature-card reveal">
+                        <div class="feature-icon">
+                            <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true">
+                                <rect x="3" y="4" width="18" height="14" rx="2" fill="none" stroke="currentColor" stroke-width="2"/>
+                                <path d="M3 9h18M8 18v3M16 18v3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </div>
+                        <h3>Картинка вместо текста</h3>
+                        <p>Расписание отрисовывается как таблица на PNG — так же, как на сайте колледжа. Привычно, компактно, читаемо с телефона.</p>
+                    </article>
+
+                    <article class="feature-card reveal">
+                        <div class="feature-icon">
+                            <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true">
+                                <path d="M12 2a7 7 0 0 0-7 7c0 3 2 5 2 8h10c0-3 2-5 2-8a7 7 0 0 0-7-7zM9 20h6M10 22h4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <h3>Точные уведомления</h3>
+                        <p>Замена преподавателя, кабинета, отмена пары, дистант — изменившаяся пара подсвечивается в таблице.</p>
+                    </article>
+
+                    <article class="feature-card reveal">
+                        <div class="feature-icon">
+                            <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true">
+                                <path d="M4 4h16v6H4zM4 14h16v6H4z" fill="none" stroke="currentColor" stroke-width="2"/>
+                                <path d="M8 7h.01M8 17h.01" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+                            </svg>
+                        </div>
+                        <h3>Массовые изменения</h3>
+                        <p>Если поменялось больше половины пар — бот присылает полное расписание дня или всей недели, а не список правок.</p>
+                    </article>
+
+                    <article class="feature-card reveal">
+                        <div class="feature-icon">
+                            <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true">
+                                <rect x="3" y="5" width="18" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="2"/>
+                                <path d="M3 10h18M8 3v4M16 3v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </div>
+                        <h3>Автообъявление недели</h3>
+                        <p>Как только колледж выложит расписание следующей недели — бот отправит его картинкой один раз.</p>
+                    </article>
+
+                    <article class="feature-card reveal">
+                        <div class="feature-icon">
+                            <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true">
+                                <path d="M21 12c0 4.4-4 8-9 8-1.5 0-2.9-.3-4.1-.9L3 21l1.9-4.9A7.9 7.9 0 0 1 3 12c0-4.4 4-8 9-8s9 3.6 9 8z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <h3>Команды в чате</h3>
+                        <p><code>/today</code>, <code>/week</code>, <code>/nextweek</code> и админ-команды — прямо в беседе группы. Никаких приложений.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+        <!-- ========== HOW IT WORKS ========== -->
+        <section class="section section-alt" id="how">
+            <div class="container">
+                <header class="section-head reveal">
+                    <span class="section-kicker">Как это работает</span>
+                    <h2>От запроса к API до картинки в чате</h2>
+                    <p class="section-lead">
+                        Восемь модулей, каждый отвечает за своё. Никакой магии —
+                        только Python, SQLite и Pillow.
+                    </p>
+                </header>
+
+                <ol class="steps">
+                    <li class="step reveal">
+                        <span class="step-num">01</span>
+                        <h3>Справочники</h3>
+                        <p>Бот загружает с сайта колледжа список групп, преподавателей, дисциплин и аудиторий. Кэширует в SQLite на сутки.</p>
+                    </li>
+                    <li class="step reveal">
+                        <span class="step-num">02</span>
+                        <h3>Проверка</h3>
+                        <p>По расписанию окон запрашивает расписание нужных дат и сравнивает снимок с предыдущим.</p>
+                    </li>
+                    <li class="step reveal">
+                        <span class="step-num">03</span>
+                        <h3>Сравнение</h3>
+                        <p><code>comparator.py</code> находит изменения: добавленные, удалённые, изменённые пары. Определяет «массовость».</p>
+                    </li>
+                    <li class="step reveal">
+                        <span class="step-num">04</span>
+                        <h3>Рендер</h3>
+                        <p><code>renderer.py</code> рисует PNG-таблицу на день или неделю (Пн–Сб). Изменённые пары подсвечиваются.</p>
+                    </li>
+                    <li class="step reveal">
+                        <span class="step-num">05</span>
+                        <h3>Загрузка</h3>
+                        <p>Картинка загружается в VK через <code>photos.getMessagesUploadServer</code> и получает <code>attachment</code>.</p>
+                    </li>
+                    <li class="step reveal">
+                        <span class="step-num">06</span>
+                        <h3>Отправка</h3>
+                        <p>Сообщение с подписью и картинкой уходит в беседу группы. При ошибке — текстовый fallback.</p>
+                    </li>
+                </ol>
+
+                <div class="arch-note reveal">
+                    <p>
+                        Полный список модулей и их ответственностей — в
+                        <a href="https://github.com/spkh-design/Syllabus#архитектура" target="_blank" rel="noopener">README</a>.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== SCREENSHOTS ========== -->
+        <section class="section" id="screenshots">
+            <div class="container">
+                <header class="section-head reveal">
+                    <span class="section-kicker">Скриншоты</span>
+                    <h2>Как это выглядит</h2>
+                    <p class="section-lead">
+                        Кликните на изображение — откроется в полном размере.
+                    </p>
+                </header>
+
+                <div class="screenshots-grid">
+                    <figure class="screenshot reveal" data-lightbox="img/week-schedule.png" data-caption="Расписание на неделю">
+                        <img src="img/week-schedule.png" alt="Расписание на неделю" loading="lazy">
+                        <figcaption>Расписание на неделю</figcaption>
+                    </figure>
+
+                    <figure class="screenshot reveal" data-lightbox="img/day-schedule.png" data-caption="Расписание на день">
+                        <img src="img/day-schedule.png" alt="Расписание на день" loading="lazy">
+                        <figcaption>Расписание на день</figcaption>
+                    </figure>
+
+                    <figure class="screenshot reveal" data-lightbox="img/change-notification.png" data-caption="Уведомление об изменении">
+                        <img src="img/change-notification.png" alt="Уведомление об изменении" loading="lazy">
+                        <figcaption>Уведомление об изменении</figcaption>
+                    </figure>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== COMMANDS ========== -->
+        <section class="section section-alt" id="commands">
+            <div class="container">
+                <header class="section-head reveal">
+                    <span class="section-kicker">Команды</span>
+                    <h2>Что можно написать боту</h2>
+                    <p class="section-lead">
+                        Публичные команды доступны всем, админские — только из
+                        <code>ADMIN_USER_IDS</code>.
+                    </p>
+                </header>
+
+                <div class="commands-wrap reveal">
+                    <div class="commands-col">
+                        <h3 class="commands-title">
+                            <span class="dot dot-public" aria-hidden="true"></span>
+                            Публичные
+                        </h3>
+                        <dl class="command-list">
+                            <div class="command-row">
+                                <dt><code>/start</code></dt>
+                                <dd>Приветствие и краткая инструкция</dd>
+                            </div>
+                            <div class="command-row">
+                                <dt><code>/where</code></dt>
+                                <dd>Какая группа сейчас отслеживается</dd>
+                            </div>
+                            <div class="command-row">
+                                <dt><code>/today</code></dt>
+                                <dd>Расписание на сегодня картинкой</dd>
+                            </div>
+                            <div class="command-row">
+                                <dt><code>/tomorrow</code></dt>
+                                <dd>Расписание на завтра картинкой</dd>
+                            </div>
+                            <div class="command-row">
+                                <dt><code>/week</code></dt>
+                                <dd>Текущая неделя (Пн–Сб) картинкой</dd>
+                            </div>
+                            <div class="command-row">
+                                <dt><code>/nextweek</code></dt>
+                                <dd>Следующая неделя картинкой</dd>
+                            </div>
+                            <div class="command-row">
+                                <dt><code>/whoami</code></dt>
+                                <dd>Ваш <code>from_id</code> и <code>peer_id</code></dd>
+                            </div>
+                        </dl>
+                    </div>
+
+                    <div class="commands-col">
+                        <h3 class="commands-title">
+                            <span class="dot dot-admin" aria-hidden="true"></span>
+                            Админские
+                        </h3>
+                        <dl class="command-list">
+                            <div class="command-row">
+                                <dt><code>/group СП-4 419</code></dt>
+                                <dd>Задать группу и подразделение</dd>
+                            </div>
+                            <div class="command-row">
+                                <dt><code>/interval 30</code></dt>
+                                <dd>Интервал проверки в минутах</dd>
+                            </div>
+                            <div class="command-row">
+                                <dt><code>/status</code></dt>
+                                <dd>Что настроено и когда последняя проверка</dd>
+                            </div>
+                            <div class="command-row">
+                                <dt><code>/test</code></dt>
+                                <dd>Тестовое уведомление + расписание</dd>
+                            </div>
+                            <div class="command-row">
+                                <dt><code>/metrics</code></dt>
+                                <dd>Счётчики проверок, уведомлений, ошибок</dd>
+                            </div>
+                            <div class="command-row">
+                                <dt><code>/subscribers</code></dt>
+                                <dd>Кто получает уведомления</dd>
+                            </div>
+                            <div class="command-row">
+                                <dt><code>/week_skip [дата]</code></dt>
+                                <dd>Не объявлять неделю автоматически</dd>
+                            </div>
+                            <div class="command-row">
+                                <dt><code>/unsubscribe</code></dt>
+                                <dd>Сбросить настройки</dd>
+                            </div>
+                        </dl>
+                    </div>
+                </div>
+
+                <p class="commands-note reveal">
+                    Бот молчит на обычный текст. Реагирует только на сообщения,
+                    начинающиеся с <code>/</code>.
+                </p>
+            </div>
+        </section>
+        <!-- ========== INSTALL ========== -->
+        <section class="section" id="install">
+            <div class="container">
+                <header class="section-head reveal">
+                    <span class="section-kicker">Установка</span>
+                    <h2>От нуля до работающего бота</h2>
+                    <p class="section-lead">
+                        Нужны Python 3.13+ и права администратора в сообществе ВК.
+                    </p>
+                </header>
+
+                <div class="install-steps">
+                    <div class="install-step reveal">
+                        <span class="install-step-num">1</span>
+                        <div class="install-step-body">
+                            <h3>Создайте сообщество ВК</h3>
+                            <p>
+                                Откройте <a href="https://vk.com/groups" target="_blank" rel="noopener">vk.com/groups</a>,
+                                создайте сообщество. Управление → Работа с API → Создать ключ.
+                            </p>
+                            <p class="install-meta">
+                                Права: <strong>Управление сообществом</strong>,
+                                <strong>Сообщения сообщества</strong>,
+                                <strong>Фотографии сообщества</strong>.
+                                Включите Long Poll API и отметьте «Входящие сообщения».
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="install-step reveal">
+                        <span class="install-step-num">2</span>
+                        <div class="install-step-body">
+                            <h3>Клонируйте репозиторий</h3>
+                            <div class="code-block">
+                                <button class="copy-btn" type="button" data-copy="git clone https://github.com/spkh-design/Syllabus.git&#10;cd Syllabus" aria-label="Скопировать">
+                                    <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true">
+                                        <rect x="4" y="4" width="9" height="9" rx="1" fill="none" stroke="currentColor" stroke-width="1.5"/>
+                                        <path d="M3 3h8v8" fill="none" stroke="currentColor" stroke-width="1.5"/>
+                                    </svg>
+                                </button>
+                                <pre><code>git clone https://github.com/spkh-design/Syllabus.git
+        cd Syllabus</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="install-step reveal">
+                        <span class="install-step-num">3</span>
+                        <div class="install-step-body">
+                            <h3>Создайте <code>.env</code></h3>
+                            <p>Скопируйте пример и заполните своими значениями:</p>
+                            <div class="code-block">
+                                <button class="copy-btn" type="button" data-copy="cp .env.example .env" aria-label="Скопировать">
+                                    <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true">
+                                        <rect x="4" y="4" width="9" height="9" rx="1" fill="none" stroke="currentColor" stroke-width="1.5"/>
+                                        <path d="M3 3h8v8" fill="none" stroke="currentColor" stroke-width="1.5"/>
+                                    </svg>
+                                </button>
+                                <pre><code>cp .env.example .env</code></pre>
+                            </div>
+                            <ul class="install-list">
+                                <li><code>VK_TOKEN</code> — токен из шага 1</li>
+                                <li><code>VK_GROUP_ID</code> — ID сообщества (число из <code>vk.com/clubXXXXXXXX</code>)</li>
+                                <li><code>ADMIN_USER_IDS</code> — ваш VK ID (узнать командой <code>/whoami</code>)</li>
+                                <li><code>ADMIN_PEER_ID</code> — чат для служебных сообщений (опционально)</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="install-step reveal">
+                        <span class="install-step-num">4</span>
+                        <div class="install-step-body">
+                            <h3>Установите зависимости</h3>
+                            <div class="code-block">
+                                <button class="copy-btn" type="button" data-copy="pip install -r requirements.txt" aria-label="Скопировать">
+                                    <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true">
+                                        <rect x="4" y="4" width="9" height="9" rx="1" fill="none" stroke="currentColor" stroke-width="1.5"/>
+                                        <path d="M3 3h8v8" fill="none" stroke="currentColor" stroke-width="1.5"/>
+                                    </svg>
+                                </button>
+                                <pre><code>pip install -r requirements.txt</code></pre>
+                            </div>
+                            <p class="install-meta">
+                                Если шрифты из <code>assets/</code> отсутствуют — скачайте их
+                                (Noto Sans Regular/Bold + Noto Emoji). Без них таблица не отрисуется
+                                корректно.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="install-step reveal">
+                        <span class="install-step-num">5</span>
+                        <div class="install-step-body">
+                            <h3>Запустите бота</h3>
+                            <div class="code-block">
+                                <button class="copy-btn" type="button" data-copy="python bot.py" aria-label="Скопировать">
+                                    <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true">
+                                        <rect x="4" y="4" width="9" height="9" rx="1" fill="none" stroke="currentColor" stroke-width="1.5"/>
+                                        <path d="M3 3h8v8" fill="none" stroke="currentColor" stroke-width="1.5"/>
+                                    </svg>
+                                </button>
+                                <pre><code>python bot.py</code></pre>
+                            </div>
+                            <p>Бот начнёт long-polling и фоновый цикл проверки расписания.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== DEPLOY ========== -->
+        <section class="section section-alt" id="deploy">
+            <div class="container">
+                <header class="section-head reveal">
+                    <span class="section-kicker">Развёртывание</span>
+                    <h2>В облаке — за пару минут</h2>
+                    <p class="section-lead">
+                        Пример для <a href="https://bothost.ru" target="_blank" rel="noopener">Bothost</a>,
+                        но подход тот же для любого хостинга с Docker.
+                    </p>
+                </header>
+
+                <div class="deploy-grid">
+                    <div class="deploy-card reveal">
+                        <div class="deploy-icon">
+                            <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+                                <path d="M12 2v6M12 22v-6M4.9 4.9l4.2 4.2M14.9 14.9l4.2 4.2M2 12h6M22 12h-6M4.9 19.1l4.2-4.2M14.9 9.1l4.2-4.2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </div>
+                        <h3>Переменные окружения</h3>
+                        <p>Задайте <code>VK_TOKEN</code>, <code>VK_GROUP_ID</code>, <code>ADMIN_USER_IDS</code>, <code>TZ=Asia/Yekaterinburg</code> и <code>DB_PATH=/app/data/bot.db</code>.</p>
+                    </div>
+
+                    <div class="deploy-card reveal">
+                        <div class="deploy-icon">
+                            <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+                                <path d="M3 7h18M3 12h18M3 17h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </div>
+                        <h3>Persistent volume</h3>
+                        <p>Смонтируйте постоянное хранилище на <code>/app/data/</code> — там лежат БД и кэш PNG недель. Без volume настройки будут сбрасываться.</p>
+                    </div>
+
+                    <div class="deploy-card reveal">
+                        <div class="deploy-icon">
+                            <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+                                <path d="M12 3v12M7 10l5 5 5-5M5 21h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <h3>Автодеплой</h3>
+                        <p><code>git push</code> → хостинг пересобирает контейнер и перезапускает бота. Всё через <code>Dockerfile</code> в репозитории.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== AUTHORS ========== -->
+        <section class="section" id="authors">
+            <div class="container">
+                <header class="section-head reveal">
+                    <span class="section-kicker">Авторы</span>
+                    <h2>Кто сделал Syllabus</h2>
+                    <p class="section-lead">
+                        Проект создан студентами и для студентов.
+                    </p>
+                </header>
+
+                <div class="authors-grid">
+                    <article class="author-card reveal">
+                        <img class="author-avatar" src="img/author-1.png" alt="Автор 1" width="80" height="80">
+                        <h3 class="author-name">Сергей</h3>
+                        <p class="author-role">Разработка, архитектура, тестирование</p>
+                        <a class="author-contact" href="mailto:author1@example.com">shamanidisergo@gmail.com</a>
+                    </article>
+
+                    <article class="author-card reveal">
+                        <img class="author-avatar" src="img/author-2.png" alt="Автор 2" width="80" height="80">
+                        <h3 class="author-name">Антон</h3>
+                        <p class="author-role">Проектирование, дизайн</p>
+                        <a class="author-contact" href="mailto:author2@example.com">spkantonkh@gmail.com</a>
+                    </article>
+                </div>
+
+                <p class="authors-repo reveal">
+                    Исходный код и документация:
+                    <a href="https://github.com/spkh-design/Syllabus" target="_blank" rel="noopener">
+                        github.com/spkh-design/Syllabus
+                        <svg viewBox="0 0 12 12" width="12" height="12" aria-hidden="true">
+                            <path d="M3 3h6v6M9 3L3 9" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </a>
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <!-- ========== FOOTER ========== -->
+    <footer class="site-footer">
+        <div class="container footer-inner">
+            <div class="footer-brand">
+                <a href="#top" class="logo">
+                    <img src="img/logo.svg" alt="" width="28" height="28">
+                    <span class="logo-text">Syllabus</span>
+                </a>
+                <p class="footer-note">
+                    VK-бот расписания Сургутского политехнического колледжа.
+                    Некоммерческий студенческий проект.
+                </p>
+            </div>
+
+            <nav class="footer-nav" aria-label="Навигация в подвале">
+                <div class="footer-col">
+                    <h4>Проект</h4>
+                    <a href="#features">Возможности</a>
+                    <a href="#how">Как работает</a>
+                    <a href="#screenshots">Скриншоты</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Документация</h4>
+                    <a href="#commands">Команды</a>
+                    <a href="#install">Установка</a>
+                    <a href="#deploy">Развёртывание</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Ссылки</h4>
+                    <a href="https://github.com/spkh-design/Syllabus" target="_blank" rel="noopener">GitHub</a>
+                    <a href="https://github.com/spkh-design/Syllabus#readme" target="_blank" rel="noopener">README</a>
+                    <a href="#authors">Авторы</a>
+                </div>
+            </nav>
+        </div>
+
+        <div class="container footer-bottom">
+            <p>© <span id="year">2026</span> Syllabus. Распространяется по лицензии MIT.</p>
+            <p class="footer-made">
+                Сделано с
+                <svg viewBox="0 0 16 16" width="14" height="14" aria-label="любовью" role="img">
+                    <path d="M8 14s-5-3-5-7a3 3 0 0 1 5-2 3 3 0 0 1 5 2c0 4-5 7-5 7z" fill="currentColor"/>
+                </svg>
+                в Сургуте
+            </p>
+        </div>
+    </footer>
+
+    <!-- ========== SCROLL TO TOP ========== -->
+    <button class="scroll-top" id="scrollTop" type="button" aria-label="Наверх" title="Наверх">
+        <svg viewBox="0 0 16 16" width="18" height="18" aria-hidden="true">
+            <path d="M8 12V4M4 8l4-4 4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </button>
+
+    <!-- ========== LIGHTBOX ========== -->
+    <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Просмотр изображения" hidden>
+        <button class="lightbox-close" id="lightboxClose" type="button" aria-label="Закрыть">
+            <svg viewBox="0 0 16 16" width="22" height="22" aria-hidden="true">
+                <path d="M3 3l10 10M13 3L3 13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+        </button>
+        <button class="lightbox-nav lightbox-prev" id="lightboxPrev" type="button" aria-label="Предыдущий">
+            <svg viewBox="0 0 16 16" width="24" height="24" aria-hidden="true">
+                <path d="M10 3L5 8l5 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </button>
+        <button class="lightbox-nav lightbox-next" id="lightboxNext" type="button" aria-label="Следующий">
+            <svg viewBox="0 0 16 16" width="24" height="24" aria-hidden="true">
+                <path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </button>
+
+        <figure class="lightbox-figure">
+            <img id="lightboxImg" src="" alt="">
+            <figcaption id="lightboxCaption"></figcaption>
+        </figure>
+    </div>
+
+    <script src="main.js" defer></script>
+</body>
+</html>
